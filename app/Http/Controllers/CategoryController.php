@@ -29,11 +29,8 @@ class CategoryController extends Controller
 
         try {
             // load category with it'senvelops
-            $category = Category::with('envelops')->where([
-                ["id", $request->input('id')]
-                ,
-                ["user_id", $request->auth->id],
-            ])->first()->toArray();
+            $category = Category::with('envelops')->where("id", $request->input('id'))
+                ->first()->toArray();
 
             return Helpers::success_reponse([
                 'category' => $category,
@@ -104,10 +101,10 @@ class CategoryController extends Controller
             $icon = $request->input('icon');
 
             $category = Category::where("id", $request->input('id'))
-            ->update([
-                "name" => $name,
-                "icon" => $icon,
-            ]);
+                ->update([
+                    "name" => $name,
+                    "icon" => $icon,
+                ]);
 
             // cateogry was updated and generate new token
             if ($category) {
@@ -142,7 +139,7 @@ class CategoryController extends Controller
 
         try {
             $category = Category::where('id', $request->input("id"))->delete();
-            
+
             // category was deleted + refresh token
             if ($category) {
                 return Helpers::success_reponse([
@@ -159,16 +156,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * List all cagtegories for user 
+     * List all cagtegories for user
      *
      * @param  Illuminate\Http\Request   $request
      * @return Illuminate\Http\Response
      */
-    public function list(Request $request)
-    {
+    function list(Request $request) {
         try {
             $categories = Category::where("user_id", $request->auth->id)->get();
-            
+
             // category was deleted + refresh token
             if ($categories) {
                 return Helpers::success_reponse([
@@ -183,6 +179,5 @@ class CategoryController extends Controller
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }
-
 
 }

@@ -40,5 +40,9 @@ $router->group(
         $router->post('envelop','EnvelopController@create');
         $router->put('envelop','EnvelopController@update');
         $router->delete('envelop','EnvelopController@destroy');
+
+        // settings endpoints
+        $router->get('settings','SettingsController@show');
+
     }
 );

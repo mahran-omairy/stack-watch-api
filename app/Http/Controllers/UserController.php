@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Libraries\Helpers;
 use App\User;
+use App\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -40,8 +41,13 @@ class UserController extends Controller
 
         // Verify the password and generate the token
         if (Hash::check($request->input('password'), $user->password)) {
+
+            // get application settings to be stored on user device
+            $settings = Settings::where("id", 1)->first();
+
             // return generatred token
             return Helpers::success_reponse([
+                'settings' => $settings,
                 'token' => Helpers::generate_token($user),
             ], 200);
         }
@@ -144,7 +150,7 @@ class UserController extends Controller
         // validating user input
         try {
             $this->validate($request, [
-                'password' => 'required|confirmed|max:20|min:5'
+                'password' => 'required|confirmed|max:20|min:5',
             ]);
         } catch (ValidationException $ex) {
             // return data is not valid
@@ -164,7 +170,6 @@ class UserController extends Controller
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }
-
 
     /**
      * delete a user account based on token

@@ -64,3 +64,39 @@ Stack trace:
 #20 C:\\xampp\\htdocs\\budget-planner\\public\\index.php(28): Laravel\\Lumen\\Application->run()
 #21 {main}
 "} 
+[2019-03-24 13:29:10] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Settings' not found in C:\xampp\htdocs\budget-planner\app\Http\Controllers\UserController.php:45
+Stack trace:
+#0 [internal function]: App\Http\Controllers\UserController->login(Object(Laravel\Lumen\Http\Request))
+#1 C:\xampp\htdocs\budget-planner\vendor\illuminate\container\BoundMethod.php(32): call_user_func_array(Array, Array)
+#2 C:\xampp\htdocs\budget-planner\vendor\illuminate\container\BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#3 C:\xampp\htdocs\budget-planner\vendor\illuminate\container\BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod(Object(Laravel\Lumen\Application), Array, Object(Closure))
+#4 C:\xampp\htdocs\budget-planner\vendor\illuminate\container\Container.php(580): Illuminate\Container\BoundMethod::call(Object(Laravel\Lumen\Application), Array, Array, NULL)
+#5 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(376): Illuminate\Container\Container->call(Array, Array)
+#6 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable(Array, Array)
+#7 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController(Object(App\Http\Controllers\UserController), 'login', Array)
+#8 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction(Array)
+#9 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute(Array)
+#10 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute(Array)
+#11 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}(Object(Laravel\Lumen\Http\Request))
+#12 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline(Array, Object(Closure))
+#13 C:\xampp\htdocs\budget-planner\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(108): Laravel\Lumen\Application->dispatch(NULL)
+#14 C:\xampp\htdocs\budget-planner\public\index.php(28): Laravel\Lumen\Application->run()
+#15 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Class 'App\\Http\\Controllers\\Settings' not found at C:\\xampp\\htdocs\\budget-planner\\app\\Http\\Controllers\\UserController.php:45)
+[stacktrace]
+#0 [internal function]: App\\Http\\Controllers\\UserController->login(Object(Laravel\\Lumen\\Http\\Request))
+#1 C:\\xampp\\htdocs\\budget-planner\\vendor\\illuminate\\container\\BoundMethod.php(32): call_user_func_array(Array, Array)
+#2 C:\\xampp\\htdocs\\budget-planner\\vendor\\illuminate\\container\\BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#3 C:\\xampp\\htdocs\\budget-planner\\vendor\\illuminate\\container\\BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Laravel\\Lumen\\Application), Array, Object(Closure))
+#4 C:\\xampp\\htdocs\\budget-planner\\vendor\\illuminate\\container\\Container.php(580): Illuminate\\Container\\BoundMethod::call(Object(Laravel\\Lumen\\Application), Array, Array, NULL)
+#5 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(376): Illuminate\\Container\\Container->call(Array, Array)
+#6 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable(Array, Array)
+#7 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController(Object(App\\Http\\Controllers\\UserController), 'login', Array)
+#8 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction(Array)
+#9 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute(Array)
+#10 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute(Array)
+#11 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}(Object(Laravel\\Lumen\\Http\\Request))
+#12 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline(Array, Object(Closure))
+#13 C:\\xampp\\htdocs\\budget-planner\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch(NULL)
+#14 C:\\xampp\\htdocs\\budget-planner\\public\\index.php(28): Laravel\\Lumen\\Application->run()
+#15 {main}
+"} 
