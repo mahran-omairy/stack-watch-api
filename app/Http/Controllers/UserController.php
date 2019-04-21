@@ -36,7 +36,7 @@ class UserController extends Controller
         $user = User::where('email', $request->input('email'))->first();
         if (!$user) {
             // return user not found
-            return Helpers::error_reponse("User is not found.", 400);
+            return Helpers::error_reponse("User is not found.", 404);
         }
 
         // Verify the password and generate the token
@@ -48,6 +48,7 @@ class UserController extends Controller
             // return generatred token
             return Helpers::success_reponse([
                 'settings' => $settings,
+                'user' => $user,
                 'token' => Helpers::generate_token($user),
             ], 200);
         }
@@ -61,6 +62,8 @@ class UserController extends Controller
      * @param  Illuminate\Http\Request   $request
      * @return Illuminate\Http\Response
      */
+
+     
     public function register(Request $request)
     {
 
@@ -82,13 +85,18 @@ class UserController extends Controller
             $password = password_hash($request->input('password'), PASSWORD_DEFAULT);
             $user = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
             // user was created and generate token to login
+             // get application settings to be stored on user device
+             $settings = Settings::where("id", 1)->first();
+
             return Helpers::success_reponse([
+                'settings' => $settings,
                 'token' => Helpers::generate_token($user),
+                'user' => $user,
                 'message' => "Account was created.",
             ], 200);
 
         } catch (Exception $ex) {
-            return Helpers::error_reponse("User already exsists.", 400);
+            return Helpers::error_reponse("User already exsists.", 409);
         }
 
     }
@@ -134,7 +142,7 @@ class UserController extends Controller
             ], 200, true);
 
         } catch (Exception $ex) {
-            dd($ex);
+          
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }
@@ -166,7 +174,7 @@ class UserController extends Controller
             ], 200, true);
 
         } catch (Exception $ex) {
-            dd($ex);
+        
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }
@@ -187,7 +195,6 @@ class UserController extends Controller
             ], 200);
 
         } catch (Exception $ex) {
-            dd($ex);
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }

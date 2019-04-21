@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller;
 use \Exception;
+use Illuminate\Support\Facades\DB;
 
 class EnvelopController extends Controller
 {
@@ -136,5 +137,25 @@ class EnvelopController extends Controller
         } catch (Exception $ex) {
             return Helpers::error_reponse("Envelop could not be deleted.", 400);
         }
+    }
+
+    /**
+     * envelops summary
+     *
+     * @param  Illuminate\Http\Request   $request
+     * @return Illuminate\Http\Response
+     */
+    public function summary(Request $request){
+        try {
+        $summary = Envelop::join("categories", "envelops.category_id","=","categories.id")
+        ->select(DB::raw('SUM(envelops.amount) as amount ,envelops.type'))
+        ->where("categories.user_id", $request->auth->id)
+        ->groupBy('envelops.type')->get();
+        return Helpers::success_reponse([
+            'summary' => $summary,
+        ], 200, false);
+    } catch (Exception $ex) {
+        return Helpers::error_reponse("Something went wrong!", 400);
+    }
     }
 }

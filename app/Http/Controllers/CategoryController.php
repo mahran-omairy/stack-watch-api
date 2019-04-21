@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller;
 use \Exception;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -150,7 +151,7 @@ class CategoryController extends Controller
             }
 
         } catch (Exception $ex) {
-            dd($ex);
+         
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }
@@ -175,9 +176,33 @@ class CategoryController extends Controller
             }
 
         } catch (Exception $ex) {
-            dd($ex);
+      
             return Helpers::error_reponse("Something went worong, try again later.", 400);
         }
     }
 
+
+         /**
+     * List all months for category
+     * 
+     * @param  Illuminate\Http\Request   $request
+     * @return Illuminate\Http\Response
+     */
+    function listMonth(Request $request) {
+
+        try {
+            $months = Category::select(DB::raw('YEAR(`created_at`) as `cYear` , MONTH(`created_at`) as `cMonth`'))
+            ->where("user_id", $request->auth->id)
+            ->groupBy('cYear','cMonth')->get();
+             return Helpers::success_reponse([
+                    'months' => $months,
+                ], 200, false);
+            
+
+        } catch (Exception $ex) {
+            dd( $ex);
+            return Helpers::error_reponse("Something went worong, try again later.", 400);
+        }
+}
+    
 }

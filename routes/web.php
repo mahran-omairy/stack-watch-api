@@ -35,11 +35,13 @@ $router->group(
         $router->put('category','CategoryController@update');
         $router->delete('category','CategoryController@destroy');
         $router->get('categories','CategoryController@list');
+        $router->get('category/date','CategoryController@listMonth');
 
         // envelops endpoints
         $router->post('envelop','EnvelopController@create');
         $router->put('envelop','EnvelopController@update');
         $router->delete('envelop','EnvelopController@destroy');
+        $router->get('envelops/surmmary','EnvelopController@summary');
 
         // settings endpoints
         $router->get('settings','SettingsController@show');
