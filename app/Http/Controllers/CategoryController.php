@@ -19,19 +19,18 @@ class CategoryController extends Controller
      */
     public function show(Request $request)
     {
-        try {
-            $this->validate($request, [
-                'id' => 'required|integer',
-            ]);
-        } catch (ValidationException $ex) {
-            // return data is not valid
-            return Helpers::error_reponse("Data is not valid.", 400, $ex->errors());
-        }
+        $year = $request->input("year") ?? date("Y");
+        $month = $request->input("month") ?? date("m");
 
         try {
-            // load category with it'senvelops
-            $category = Category::with('envelops')->where("id", $request->input('id'))
-                ->first()->toArray();
+            // load category with it's envelops
+            $category = Category::with([
+                'envelops' => function($query) use ($year,$month){
+                    $query->whereYear('envelops.created_at' ,$year ) 
+                        ->whereMonth('envelops.created_at' ,$month);
+                }
+            ])->where("id", $request->route('id'))
+            ->first()->toArray();
 
             return Helpers::success_reponse([
                 'category' => $category,
@@ -87,7 +86,6 @@ class CategoryController extends Controller
     {
         try {
             $this->validate($request, [
-                'id' => 'required|integer',
                 'name' => 'required|max:191',
                 'icon' => 'required|max:20',
             ]);
@@ -97,11 +95,11 @@ class CategoryController extends Controller
         }
 
         try {
-            $id = $request->input('id');
+            $id = $request->route('id');
             $name = $request->input('name');
             $icon = $request->input('icon');
 
-            $category = Category::where("id", $request->input('id'))
+            $category = Category::where("id", $id)
                 ->update([
                     "name" => $name,
                     "icon" => $icon,
@@ -129,17 +127,9 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request)
     {
-        try {
-            $this->validate($request, [
-                'id' => 'required|integer',
-            ]);
-        } catch (ValidationException $ex) {
-            // return data is not valid
-            return Helpers::error_reponse("Data is not valid.", 400, $ex->errors());
-        }
 
         try {
-            $category = Category::where('id', $request->input("id"))->delete();
+            $category = Category::where('id', $request->route("id"))->delete();
 
             // category was deleted + refresh token
             if ($category) {
@@ -189,7 +179,7 @@ class CategoryController extends Controller
      * @return Illuminate\Http\Response
      */
     function listMonth(Request $request) {
-
+       
         try {
             $months = Category::select(DB::raw('YEAR(`created_at`) as `cYear` , MONTH(`created_at`) as `cMonth`'))
             ->where("user_id", $request->auth->id)

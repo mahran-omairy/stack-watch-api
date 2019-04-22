@@ -65,7 +65,6 @@ class EnvelopController extends Controller
     {
         try {
             $this->validate($request, [
-                'id' => 'required|integer',
                 'name' => 'required|max:191',
                 'icon' => 'required|max:20',
                 'amount' => 'required|numeric',
@@ -76,7 +75,7 @@ class EnvelopController extends Controller
         }
 
         try {
-            $id = $request->input('id');
+            $id = $request->route('id');
             $name = $request->input('name');
             $icon = $request->input('icon');
             $amount = $request->input('amount');
@@ -111,19 +110,9 @@ class EnvelopController extends Controller
      */
     public function destroy(Request $request)
     {
+       
         try {
-            $this->validate($request, [
-                'id' => 'required|integer',
-            ]);
-        } catch (ValidationException $ex) {
-            // return data is not valid
-            return Helpers::error_reponse("Data is not valid.", 400, $ex->errors());
-        }
-
-        try {
-            $id = $request->input('id');
-
-            $envelop = Envelop::where("id", $request->input('id'))
+            $envelop = Envelop::where("id", $request->route('id'))
             ->delete();
             // envelop was deleted and generate new token
             if ($envelop) {
@@ -146,15 +135,23 @@ class EnvelopController extends Controller
      * @return Illuminate\Http\Response
      */
     public function summary(Request $request){
+        
+        $year = $request->input("year") ?? date("Y");
+        $month = $request->input("month") ?? date("m");
+  
+
         try {
         $summary = Envelop::join("categories", "envelops.category_id","=","categories.id")
         ->select(DB::raw('SUM(envelops.amount) as amount ,envelops.type'))
         ->where("categories.user_id", $request->auth->id)
+        ->whereYear('envelops.created_at' ,$year ) 
+        ->whereMonth('envelops.created_at' ,$month )
         ->groupBy('envelops.type')->get();
         return Helpers::success_reponse([
             'summary' => $summary,
         ], 200, false);
     } catch (Exception $ex) {
+        dd($ex);
         return Helpers::error_reponse("Something went wrong!", 400);
     }
     }
