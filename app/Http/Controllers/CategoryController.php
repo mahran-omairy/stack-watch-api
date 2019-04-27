@@ -54,7 +54,7 @@ class CategoryController extends Controller
         try {
             $this->validate($request, [
                 'name' => 'required|max:191',
-                'icon' => 'required|max:20',
+                'icon' => 'required|max:30',
             ]);
         } catch (ValidationException $ex) {
             // return data is not valid
@@ -87,7 +87,7 @@ class CategoryController extends Controller
         try {
             $this->validate($request, [
                 'name' => 'required|max:191',
-                'icon' => 'required|max:20',
+                'icon' => 'required|max:30',
             ]);
         } catch (ValidationException $ex) {
             // return data is not valid

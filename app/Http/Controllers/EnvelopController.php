@@ -24,7 +24,7 @@ class EnvelopController extends Controller
             $this->validate($request, [
                 'category_id' => 'required|integer',
                 'name' => 'required|max:191',
-                'icon' => 'required|max:20',
+                'icon' => 'required|max:30',
                 'amount' => 'required|numeric',
                 'type' => 'required',
                 'created_at' => 'required|date',
@@ -66,7 +66,7 @@ class EnvelopController extends Controller
         try {
             $this->validate($request, [
                 'name' => 'required|max:191',
-                'icon' => 'required|max:20',
+                'icon' => 'required|max:30',
                 'amount' => 'required|numeric',
             ]);
         } catch (ValidationException $ex) {
