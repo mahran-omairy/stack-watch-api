@@ -40,7 +40,6 @@ $router->group(
 
         // envelops endpoints
         $router->post('envelop','EnvelopController@create');
-        $router->put('envelop/{id}','EnvelopController@update');
         $router->delete('envelop/{id}','EnvelopController@destroy');
         $router->get('envelops/surmmary','EnvelopController@summary');
 

@@ -17,7 +17,7 @@ class EnvelopController extends Controller
      *
      * @param  Illuminate\Http\Request   $request
      * @return Illuminate\Http\Response
-     */
+     */ 
     public function create(Request $request)
     {
         try {
@@ -52,52 +52,6 @@ class EnvelopController extends Controller
 
         } catch (Exception $ex) {
             return Helpers::error_reponse("Eenvelop could not be creared.", 400);
-        }
-    }
-
-    /**
-     * update an  envelop.
-     *
-     * @param  Illuminate\Http\Request   $request
-     * @return Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        try {
-            $this->validate($request, [
-                'name' => 'required|max:191',
-                'icon' => 'required|max:30',
-                'amount' => 'required|numeric',
-            ]);
-        } catch (ValidationException $ex) {
-            // return data is not valid
-            return Helpers::error_reponse("Data is not valid.", 400, $ex->errors());
-        }
-
-        try {
-            $id = $request->route('id');
-            $name = $request->input('name');
-            $icon = $request->input('icon');
-            $amount = $request->input('amount');
-
-            $envelop = Envelop::where("id", $request->input('id'))
-            ->update([
-                "name" => $name,
-                "icon" => $icon,
-                "amount" => $amount
-            ]);
-
-            // envelop was updated and generate new token
-            if ($envelop) {
-                return Helpers::success_reponse([
-                    'message' => "Envelop was updated.",
-                ], 200, true);
-            } else {
-                throw new Exception;
-            }
-
-        } catch (Exception $ex) {
-            return Helpers::error_reponse("Envelop could not be updated.", 400);
         }
     }
 
