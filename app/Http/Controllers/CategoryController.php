@@ -30,15 +30,18 @@ class CategoryController extends Controller
                         ->whereMonth('envelops.created_at' ,$month);
                 }
             ])->where("id", $request->route('id'))
-            ->first()->toArray();
-
-            return Helpers::success_reponse([
-                'category' => $category,
-                //'envelops'=> $category->envelops
-            ], 200, true);
+            ->first();
+            if ($category){
+                return Helpers::success_reponse([
+                    'category' => $category->toArray(),
+                    //'envelops'=> $category->envelops
+                ], 200, true);
+            }else{
+                return Helpers::error_reponse("Category does not exsist.", 404);
+            }
+            
         } catch (Exception $ex) {
-            dd($ex);
-            return Helpers::error_reponse("Category does not exsist.", 400);
+            return Helpers::error_reponse("Category does not exsist.", 404);
         }
     }
 

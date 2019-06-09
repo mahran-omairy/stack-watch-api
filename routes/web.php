@@ -30,17 +30,17 @@ $router->group(
 
 
         // category endpoints
-        $router->get('category/date','CategoryController@listMonth');
-        $router->get('category/{id}','CategoryController@show');
-        $router->post('category','CategoryController@create');
-        $router->put('category/{id}','CategoryController@update');
-        $router->delete('category/{id}','CategoryController@destroy');
+        $router->get('categories/date','CategoryController@listMonth');
+        $router->get('categories/{id}','CategoryController@show');
+        $router->post('categories','CategoryController@create');
+        $router->put('categories/{id}','CategoryController@update');
+        $router->delete('categories/{id}','CategoryController@destroy');
         $router->get('categories','CategoryController@list');
         
 
         // envelops endpoints
-        $router->post('envelop','EnvelopController@create');
-        $router->delete('envelop/{id}','EnvelopController@destroy');
+        $router->post('envelops','EnvelopController@create');
+        $router->delete('envelops/{id}','EnvelopController@destroy');
         $router->get('envelops/surmmary','EnvelopController@summary');
 
         // settings endpoints
